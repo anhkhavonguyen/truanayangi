@@ -1,6 +1,6 @@
 const foodModel = require('../food/food.model');
 const foodEnum = require('../../enum/food');
-const esSearch = require('../search/search');
+const foodService = require('./food.service');
 
 exports.get = function (req, res) {
     var pageNo = parseInt(req.query.pageNo);
@@ -21,21 +21,21 @@ exports.get = function (req, res) {
 };
 
 exports.post = function (req, res) {
-    let newOrder = new foodModel({
+    let foodModel = new foodModel({
         number: req.body.number,
         description: req.body.description,
-        status: foodEnum.CREATED
+        status: req.body.status,
+        name: req.body.name,
+        address: req.body.address
     });
 
-    foodModel.add(newOrder, (err, data) => {
+    foodModel.add(foodModel, (err, data) => {
         if (err) {
-            res.json({ success: false, message: `Failed to create a new Order. Error: ${err}` });
+            res.json({ success: false, message: `Failed to create a new Food. Error: ${err}` });
         } else {
             res.write(JSON.stringify({ success: true, data: data }, null, 2));
             res.end();
         }
-
-
     })
 }
 
@@ -93,13 +93,10 @@ exports.getBy = function (req, res) {
     });
 };
 
+exports.angi = function (req, res) {
+    let numberStore = foodModel.count();
+    result = foodService.angi(numberStore);
 
-// exports.search = function (req, res, next) {
-//     await esSearch.queryTerm(term, offset);
-// }
-
-// router.get('/search', async (ctx, next) => {
-//     const { term, offset } = ctx.request.query
-//     ctx.body = await search.queryTerm(term, offset)
-//   }
-// )
+    res.write(JSON.stringify({ success: true, data: result }, null, 2));
+    res.end();
+}

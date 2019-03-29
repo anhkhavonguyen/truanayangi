@@ -6,10 +6,11 @@ var FoodSchema = new Schema({
     number: Number,
     description: String,
     status: String,
-    name: String
+    name: String,
+    address: String
 });
 
-const FoodModel = module.exports = mongoose.model('order', FoodSchema);
+const FoodModel = module.exports = mongoose.model('food', FoodSchema);
 
 module.exports.getById = (value, callback) => {
     FoodModel.findById(value).exec(callback);
@@ -35,5 +36,9 @@ module.exports.delete = (id, callback) => {
 
 module.exports.update = (updatedOrder, callback) => {
     updatedOrder.save(callback);
+}
+
+module.exports.count = (callback) => {
+    FoodModel.count(callback);
 }
 
