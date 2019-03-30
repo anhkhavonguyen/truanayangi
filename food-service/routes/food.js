@@ -12,6 +12,10 @@ router
     .post(foodController.cancel)
 
 router
+    .route("/angi")
+    .post(foodController.angi)
+
+router
     .route("/update/:id")
     .put(foodController.update)
 

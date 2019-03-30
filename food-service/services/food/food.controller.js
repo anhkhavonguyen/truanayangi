@@ -3,25 +3,20 @@ const foodEnum = require('../../enum/food');
 const foodService = require('./food.service');
 
 exports.get = function (req, res) {
-    var pageNo = parseInt(req.query.pageNo);
-    var pageSize = parseInt(req.query.pageSize);
-
-    foodModel.get(pageNo, pageSize, (err, data) => {
+    foodModel.get((err, data) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load all orders. Error: ${err}` });
+            res.json({ success: false, message: `Failed to load all food. Error: ${err}` });
         }
         else {
-            if (data) {
-                var totalPages = Math.ceil(data.length / pageSize);
-            }
-            res.write(JSON.stringify({ success: true, data: data, totalPages: totalPages }, null, 2));
+
+            res.write(JSON.stringify({ success: true, data: data }, null, 2));
             res.end();
         }
     });
 };
 
 exports.post = function (req, res) {
-    let foodModel = new foodModel({
+    let foodRequestModel = new foodModel({
         number: req.body.number,
         description: req.body.description,
         status: req.body.status,
@@ -29,7 +24,7 @@ exports.post = function (req, res) {
         address: req.body.address
     });
 
-    foodModel.add(foodModel, (err, data) => {
+    foodModel.add(foodRequestModel, (err, data) => {
         if (err) {
             res.json({ success: false, message: `Failed to create a new Food. Error: ${err}` });
         } else {
@@ -94,9 +89,14 @@ exports.getBy = function (req, res) {
 };
 
 exports.angi = function (req, res) {
-    let numberStore = foodModel.count();
-    result = foodService.angi(numberStore);
-
-    res.write(JSON.stringify({ success: true, data: result }, null, 2));
-    res.end();
+    foodModel.count((err, countResult) => {
+        if (err) {
+            res.json({ success: false, message: `Failed to count store. Error: ${err}` });
+        }
+        else {
+            result = foodService.angi(countResult);
+            res.write(JSON.stringify({ success: true, data: result }, null, 2));
+            res.end();
+        }
+    });
 }

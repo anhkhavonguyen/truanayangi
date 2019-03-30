@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OrderService } from '../order.service';
-import { Order } from 'src/app/shared/interfaces/order';
+import { Food } from 'src/app/shared/interfaces/food';
+import { FoodService } from '../food.service';
 
 @Component({
-  selector: 'app-order-edit',
-  templateUrl: './order-edit.component.html',
-  styleUrls: ['./order-edit.component.css']
+  selector: 'app-food-edit',
+  templateUrl: './food-edit.component.html',
+  styleUrls: ['./food-edit.component.css']
 })
-export class OrderEditComponent implements OnInit {
+export class FoodEditComponent implements OnInit {
   foods: any = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
@@ -17,11 +17,11 @@ export class OrderEditComponent implements OnInit {
 
   selectedBook: any;
   selectedFav: any;
-  order: Order;
+  Food: Food;
   readingList: {};
   favorite: any;
 
-  constructor(private orderService: OrderService,
+  constructor(private foodService: FoodService,
     private router: Router,
     private route: ActivatedRoute) { }
 
@@ -30,16 +30,16 @@ export class OrderEditComponent implements OnInit {
     // if (param) {
     //   console.log(param);
     //   const id = param;
-    //   this.getOrder(id);
+    //   this.getfood(id);
     // }
     // this.getBooks();
   }
 
-  getOrder(id: number) {
-    this.orderService.getOrderDetails(id)
+  getfood(id: number) {
+    this.foodService.getFoodDetails(id)
       .subscribe(
-        (results: Order) => {
-          this.order = results;
+        (results: Food) => {
+          this.Food = results;
         }
       );
   }

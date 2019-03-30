@@ -16,13 +16,8 @@ module.exports.getById = (value, callback) => {
     FoodModel.findById(value).exec(callback);
 }
 
-module.exports.get = (pageNo, pageSize, callback) => {
-    var query = {};
-    query.skip = pageSize * (pageNo - 1);
-    query.take = pageSize;
-    FoodModel.count({}, function (err, totalItems) {
-        FoodModel.find({}, {}, query, callback);
-    });
+module.exports.get = (callback) => {
+    FoodModel.find(callback);
 }
 
 module.exports.add = (newList, callback) => {
@@ -39,6 +34,6 @@ module.exports.update = (updatedOrder, callback) => {
 }
 
 module.exports.count = (callback) => {
-    FoodModel.count(callback);
+    FoodModel.find().count(callback);
 }
 
