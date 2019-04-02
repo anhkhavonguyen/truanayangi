@@ -1,14 +1,7 @@
 {
   "name": "truanayangi-solution",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "node food-service.js",
-    "build": "node food-service.js",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
+  "main": "food-service.js",
   "private": true,
   "dependencies": {
     "body-parser": "^1.18.3",
