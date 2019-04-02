@@ -2,14 +2,19 @@ const express = require('express');
 var config = require('./config/config');
 var router = require('./routes/api-routes');
 const app = express();
-
-// db.url is different depending on NODE_ENV
-require('mongoose').connect(config.db.url, {
-    useMongoClient: true
-});
+const mongoose = require("mongoose");
 
 // setup the Express middlware
 require('./middlewares/middleware')(app);
+
+app.use((req, res, next) => {
+    if (mongoose.connection.readyState) {
+      next();
+    } else {
+      require("./mongo")().then(() => next());
+    }
+  });
+  
 
 // setup the routes
 app.use("/", router);
