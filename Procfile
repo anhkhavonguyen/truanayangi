@@ -1,1 +1,1 @@
-web: food-service.js
+web: node food-service.js
