@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\food-service\\food-service.js",
+            "program": "${workspaceFolder}\\food-service.js",
         },
         
         {

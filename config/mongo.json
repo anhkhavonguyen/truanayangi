@@ -8,6 +8,6 @@
         "host": "localhost"
     },
     "production": {
-        "use_env_variable": "mongodb+srv://truanayangi:<password>@truanayangi-gwvhk.mongodb.net/test?retryWrites=true"
+        "use_env_variable": "mongodb+srv://truanayangi:truanayangi@truanayangi-gwvhk.mongodb.net/test?retryWrites=true"
     }
 }
